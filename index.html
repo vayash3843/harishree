@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthCare Clinic — Management System</title>
+  <meta name="description"
+    content="Comprehensive clinic management system for general and family medicine practice. Manage patients, appointments, medical records, prescriptions, and billing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+
+<body>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand" id="sidebarBrandToggle" title="Click Clinic Logo to toggle sidebar"
+      style="cursor:pointer;">
+      <div class="brand-icon">🏥</div>
+      <div class="brand-text">
+        <span class="brand-name" id="sidebarClinicName">HARISHREE CLINIC</span>
+        <span class="brand-sub" id="sidebarDoctorName">DR. YASH VAGHANI</span>
+      </div>
+      <span class="brand-toggle-icon" id="sidebarToggleIcon"
+        style="margin-left:auto;font-size:12px;opacity:0.7;">◀</span>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebarNav">
+      <a href="#" class="nav-item active" data-module="dashboard" id="nav-dashboard">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-module="patients" id="nav-patients">
+        <span class="nav-icon">👤</span>
+        <span class="nav-label">Patients</span>
+      </a>
+      <a href="#" class="nav-item" data-module="records" id="nav-records">
+        <span class="nav-icon">🩺</span>
+        <span class="nav-label">Medical Records</span>
+      </a>
+      <a href="#" class="nav-item" data-module="medicines" id="nav-medicines">
+        <span class="nav-icon">💊</span>
+        <span class="nav-label">Medicine Master</span>
+      </a>
+      <a href="#" class="nav-item" data-module="labmaster" id="nav-labmaster">
+        <span class="nav-icon">🧪</span>
+        <span class="nav-label">Lab Master</span>
+      </a>
+      <a href="#" class="nav-item" data-module="advicemaster" id="nav-advicemaster">
+        <span class="nav-icon">💡</span>
+        <span class="nav-label">Extra Advice Master</span>
+      </a>
+      <a href="#" class="nav-item" data-module="billing" id="nav-billing">
+        <span class="nav-icon">🧾</span>
+        <span class="nav-label">Billing</span>
+      </a>
+      <a href="#" class="nav-item" data-module="opd" id="nav-opd">
+        <span class="nav-icon">🏥</span>
+        <span class="nav-label">OPD Collection</span>
+      </a>
+      <a href="#" class="nav-item" data-module="charges" id="nav-charges">
+        <span class="nav-icon">💵</span>
+        <span class="nav-label">Charges Master</span>
+      </a>
+      <a href="#" class="nav-item" data-module="staff" id="nav-staff">
+        <span class="nav-icon">👥</span>
+        <span class="nav-label">Team & Staff</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div id="sidebarUserBox" onclick="App.openLoginModal()" style="cursor:pointer;padding:8px 10px;margin-bottom:8px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-md);display:flex;align-items:center;gap:8px;transition:all 0.2s;" title="Click to switch role or login as Pharmacist">
+        <div style="font-size:18px;" id="sidebarUserIcon">👨‍⚕️</div>
+        <div style="flex:1;min-width:0;">
+          <div id="sidebarUserName" style="font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text-primary);">DR. YASH VAGHANI</div>
+          <div id="sidebarUserRole" style="font-size:10px;color:var(--primary);font-weight:700;">Doctor</div>
+        </div>
+        <span style="font-size:11px;color:var(--text-muted);">🔄</span>
+      </div>
+      <a href="#" class="nav-item" data-module="settings" id="nav-settings">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Settings</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN WRAPPER ===== -->
+  <div class="main-wrapper" id="mainWrapper">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">☰</button>
+      <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      <div class="topbar-right">
+        <!-- Active User Profile Pill / Switch Role -->
+        <div class="user-profile-badge" id="userProfileBadge" onclick="App.openLoginModal()" title="Click to switch role or login as Pharmacist / Doctor" style="cursor:pointer;display:flex;align-items:center;gap:6px;background:var(--bg-elevated);padding:5px 12px;border-radius:var(--radius-full);border:1px solid var(--border);font-size:12px;font-weight:700;transition:all 0.2s;">
+          <span id="userRoleIcon">👨‍⚕️</span>
+          <span id="userNameDisplay" style="color:var(--text-primary);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">DR. YASH VAGHANI</span>
+          <span id="userRoleBadge" style="font-size:10px;background:#e0f2fe;color:#0369a1;padding:2px 7px;border-radius:4px;font-weight:800;">Doctor</span>
+        </div>
+        <div class="cloud-status-badge cloud-badge-local" id="cloudStatusBadge" onclick="navigateTo('settings')" title="Click to view Cloud Database settings" style="cursor:pointer;">
+          <span class="cloud-badge-dot">🟡</span>
+          <span class="cloud-badge-text">Local Mode</span>
+        </div>
+        <div class="datetime" id="datetime"></div>
+        <button class="theme-toggle" id="themeToggle" title="Toggle light/dark theme">🌙</button>
+      </div>
+    </header>
+
+    <!-- Module Panels -->
+    <main class="content" id="mainContent">
+      <div id="module-dashboard" class="module active"></div>
+      <div id="module-patients" class="module"></div>
+      <div id="module-records" class="module"></div>
+      <div id="module-medicines" class="module"></div>
+      <div id="module-labmaster" class="module"></div>
+      <div id="module-advicemaster" class="module"></div>
+      <div id="module-billing" class="module"></div>
+      <div id="module-opd" class="module"></div>
+      <div id="module-charges" class="module"></div>
+      <div id="module-staff" class="module"></div>
+      <div id="module-settings" class="module"></div>
+    </main>
+  </div>
+
+  <!-- ===== SLIDE-OVER DRAWER FOR STAFF ===== -->
+  <div class="staff-drawer-overlay" id="staffDrawerOverlay" onclick="if(event.target===this)StaffModule.closeDrawer()">
+    <div class="staff-drawer" id="staffDrawer"></div>
+  </div>
+
+  <!-- ===== MODAL (nested inside overlay for perfect flexbox centering) ===== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle"></h3>
+        <button class="modal-close" id="modalClose" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer" id="modalFooter"></div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- ===== FIREBASE CLOUD DB SDK ===== -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="js/cloud.js"></script>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="js/db.js"></script>
+  <script src="js/app.js"></script>
+
+  <script src="js/dashboard.js"></script>
+  <script src="js/patients.js"></script>
+  <script src="js/appointments.js"></script>
+  <script src="js/records.js"></script>
+  <script src="js/prescriptions.js"></script>
+  <script src="js/billing.js"></script>
+  <script src="js/opd.js"></script>
+  <script src="js/charges.js"></script>
+  <script src="js/medicines.js"></script>
+  <script src="js/labmaster.js"></script>
+  <script src="js/advicemaster.js"></script>
+  <script src="js/staff.js"></script>
+  <script src="js/settings.js"></script>
+
+</body>
+
+</html>
